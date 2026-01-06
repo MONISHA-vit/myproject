@@ -44,6 +44,14 @@ def delete_student():
         print("Student deleted successfully")
     else:
         print("Student not found")
+        
+def search_student():
+    sid = input("Enter Student ID to search: ")
+    if sid in students:
+        s = students[sid]
+        print(f"ID: {sid}, Name: {s['name']}, Dept: {s['dept']}")
+    else:
+        print("Student not found")
 
 # Main menu
 def menu():
