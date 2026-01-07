@@ -65,6 +65,16 @@ def show_transaction_history():
     else:
         print("Account not found!\n")
 
+# Function to check balance
+def check_balance():
+    acc_num = input("Enter account number: ")
+    if acc_num in accounts:
+        print("Current balance:", accounts[acc_num]["balance"], "\n")
+    else:
+        print("Account not found!\n")
+
+
+
 # Main menu
 def main():
     while True:
@@ -74,9 +84,10 @@ def main():
         print("3. Withdraw Money")
         print("4. Display Accounts")
         print("5. Transaction History")
-        print("6. Exit")
-        
-        choice = input("Enter your choice (1-6): ")
+        print("6. Check Balance")
+        print("7. Exit")
+
+        choice = input("Enter your choice (1-7): ")
         
         if choice == "1":
             create_account()
@@ -89,8 +100,11 @@ def main():
         elif choice == "5":
             show_transaction_history()
         elif choice == "6":
+            check_balance()
+        elif choice == "7":
             print("Exiting... Thank you!")
             break
+
         else:
             print("Invalid choice! Try again.\n")
 
