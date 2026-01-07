@@ -12,7 +12,11 @@ def create_account():
     if acc_num in accounts:
         print("Account already exists!\n")
     else:
-        accounts[acc_num] = {"name": name, "balance": balance}
+        accounts[acc_num] = {
+            "name": name,
+            "balance": balance,
+            "transactions": [f"Account created with balance {balance}"]
+        }
         print(f"Account for {name} created successfully!\n")
 
 # Function to deposit money
@@ -21,6 +25,7 @@ def deposit():
     if acc_num in accounts:
         amount = float(input("Enter amount to deposit: "))
         accounts[acc_num]["balance"] += amount
+        accounts[acc_num]["transactions"].append(f"Deposited {amount}")
         print(f"Deposited {amount}. New balance: {accounts[acc_num]['balance']}\n")
     else:
         print("Account not found!\n")
@@ -32,6 +37,7 @@ def withdraw():
         amount = float(input("Enter amount to withdraw: "))
         if accounts[acc_num]["balance"] >= amount:
             accounts[acc_num]["balance"] -= amount
+            accounts[acc_num]["transactions"].append(f"Withdrew {amount}")
             print(f"Withdrawn {amount}. New balance: {accounts[acc_num]['balance']}\n")
         else:
             print("Insufficient balance!\n")
@@ -48,6 +54,17 @@ def display_accounts():
             print(f"Account No: {acc_num}, Name: {info['name']}, Balance: {info['balance']}")
         print()
 
+# Function to display transaction history
+def show_transaction_history():
+    acc_num = input("Enter account number: ")
+    if acc_num in accounts:
+        print("\nTransaction History:")
+        for txn in accounts[acc_num]["transactions"]:
+            print("-", txn)
+        print()
+    else:
+        print("Account not found!\n")
+
 # Main menu
 def main():
     while True:
@@ -56,9 +73,10 @@ def main():
         print("2. Deposit Money")
         print("3. Withdraw Money")
         print("4. Display Accounts")
-        print("5. Exit")
+        print("5. Transaction History")
+        print("6. Exit")
         
-        choice = input("Enter your choice (1-5): ")
+        choice = input("Enter your choice (1-6): ")
         
         if choice == "1":
             create_account()
@@ -69,6 +87,8 @@ def main():
         elif choice == "4":
             display_accounts()
         elif choice == "5":
+            show_transaction_history()
+        elif choice == "6":
             print("Exiting... Thank you!")
             break
         else:
