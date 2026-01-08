@@ -65,35 +65,31 @@ def show_transaction_history():
     else:
         print("Account not found!\n")
 
-# ADDED BANK CLASS
+def transfer_money():
+    sender = input("Enter sender account number: ")
+    receiver = input("Enter receiver account number: ")
+    amount = float(input("Enter amount to transfer: "))
 
-class Bank:
-    def transfer_money(self):
-        sender = input("Enter sender account number: ")
-        receiver = input("Enter receiver account number: ")
-        amount = float(input("Enter amount to transfer: "))
+    if sender in accounts and receiver in accounts:
+        if accounts[sender]["balance"] >= amount:
+            accounts[sender]["balance"] -= amount
+            accounts[receiver]["balance"] += amount
 
-        if sender in accounts and receiver in accounts:
-            if accounts[sender]["balance"] >= amount:
-                accounts[sender]["balance"] -= amount
-                accounts[receiver]["balance"] += amount
+            accounts[sender]["transactions"].append(
+                f"Transferred {amount} to {receiver}"
+            )
+            accounts[receiver]["transactions"].append(
+                f"Received {amount} from {sender}"
+            )
 
-                accounts[sender]["transactions"].append(
-                    f"Transferred {amount} to {receiver}"
-                )
-                accounts[receiver]["transactions"].append(
-                    f"Received {amount} from {sender}"
-                )
-
-                print("\nTransfer Successful")
-                print("Sender Balance:", accounts[sender]["balance"])
-                print("Receiver Balance:", accounts[receiver]["balance"])
-            else:
-                print("\nInsufficient Balance")
+            print("\nTransfer Successful")
+            print("Sender Balance:", accounts[sender]["balance"])
+            print("Receiver Balance:", accounts[receiver]["balance"])
         else:
-            print("\nInvalid Account Number")
+            print("\nInsufficient Balance")
+    else:
+        print("\nInvalid Account Number")
 
-bank = Bank()
 
 # MAIN MENU
 
@@ -121,7 +117,7 @@ def main():
         elif choice == "5":
             show_transaction_history()
         elif choice == "6":
-            bank.transfer_money()
+            transfer_money()
         elif choice == "7":
             print("Exiting... Thank you!")
             break
