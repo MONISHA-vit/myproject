@@ -1,3 +1,4 @@
+
 # banking_system_interactive.py
 
 # Dictionary to store account info
@@ -65,6 +66,7 @@ def show_transaction_history():
     else:
         print("Account not found!\n")
 
+# Function to transfer money between accounts
 def transfer_money():
     sender = input("Enter sender account number: ")
     receiver = input("Enter receiver account number: ")
@@ -90,9 +92,15 @@ def transfer_money():
     else:
         print("\nInvalid Account Number")
 
+# Function to check balance
+def check_balance():
+    acc_num = input("Enter account number: ")
+    if acc_num in accounts:
+        print(f"Account Balance for {accounts[acc_num]['name']}: {accounts[acc_num]['balance']}\n")
+    else:
+        print("Account not found!\n")
 
 # MAIN MENU
-
 def main():
     while True:
         print("=== Banking System Menu ===")
@@ -103,8 +111,9 @@ def main():
         print("5. Transaction History")
         print("6. Transfer Money")
         print("7. Exit")
+        print("8. Check Balance")  # New feature
         
-        choice = input("Enter your choice (1-7): ")
+        choice = input("Enter your choice (1-8): ")
         
         if choice == "1":
             create_account()
@@ -121,6 +130,8 @@ def main():
         elif choice == "7":
             print("Exiting... Thank you!")
             break
+        elif choice == "8":
+            check_balance()
         else:
             print("Invalid choice! Try again.\n")
 
