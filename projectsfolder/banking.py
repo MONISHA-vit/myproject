@@ -65,7 +65,38 @@ def show_transaction_history():
     else:
         print("Account not found!\n")
 
-# Main menu
+# ADDED BANK CLASS
+
+class Bank:
+    def transfer_money(self):
+        sender = input("Enter sender account number: ")
+        receiver = input("Enter receiver account number: ")
+        amount = float(input("Enter amount to transfer: "))
+
+        if sender in accounts and receiver in accounts:
+            if accounts[sender]["balance"] >= amount:
+                accounts[sender]["balance"] -= amount
+                accounts[receiver]["balance"] += amount
+
+                accounts[sender]["transactions"].append(
+                    f"Transferred {amount} to {receiver}"
+                )
+                accounts[receiver]["transactions"].append(
+                    f"Received {amount} from {sender}"
+                )
+
+                print("\nTransfer Successful")
+                print("Sender Balance:", accounts[sender]["balance"])
+                print("Receiver Balance:", accounts[receiver]["balance"])
+            else:
+                print("\nInsufficient Balance")
+        else:
+            print("\nInvalid Account Number")
+
+bank = Bank()
+
+# MAIN MENU
+
 def main():
     while True:
         print("=== Banking System Menu ===")
@@ -74,9 +105,10 @@ def main():
         print("3. Withdraw Money")
         print("4. Display Accounts")
         print("5. Transaction History")
-        print("6. Exit")
+        print("6. Transfer Money")
+        print("7. Exit")
         
-        choice = input("Enter your choice (1-6): ")
+        choice = input("Enter your choice (1-7): ")
         
         if choice == "1":
             create_account()
@@ -89,6 +121,8 @@ def main():
         elif choice == "5":
             show_transaction_history()
         elif choice == "6":
+            bank.transfer_money()
+        elif choice == "7":
             print("Exiting... Thank you!")
             break
         else:
