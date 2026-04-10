@@ -1,0 +1,26 @@
+package com.example;
+pom.xml (important parts)
+<parent>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-parent</artifactId>
+ <version>3.2.5</version>
+</parent>
+<dependencies>
+ <dependency>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-web</artifactId>
+ </dependency>
+</dependencies>
+App.java
+@SpringBootApplication
+public class App {
+ public static void main(String[] args) {
+ SpringApplication.run(App.class, args);
+ }
+}
+HelloController.java
+@RestController
+public class HelloController {
+ @GetMapping("/")
+ public String home() { return "App Running"; }
+}
